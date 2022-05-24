@@ -52,12 +52,12 @@ function isRead (status) {
 // Removes a book from the library
 function removeBook (index) {
     myLibrary.splice(index, 1);
-}
+};
 
 // addBookToLibrary('Game of Thrones', 'George R.R. Martin', 694, true);
 addBookToLibrary('Where the Crawdads Sing', 'Delia Owens', 368, false);
 addBookToLibrary('The Lightning Thief', 'Rick Riordan', 416, true);
-// addBookToLibrary('The Sea of Monsters', 'Rick Riordan', 320, true);
+addBookToLibrary('The Sea of Monsters', 'Rick Riordan', 320, true);
 // addBookToLibrary('A Clash of Kings', 'George R.R. Martin', 768, true);
 addBookToLibrary('The Principles of Object-Oriented JavaScript', 'Nicholas C. Zakas', 120, false);
 
@@ -105,7 +105,7 @@ function renderPage () {
     renderLibrary();
     removeSelect();
     statusListener();
-}
+};
 
 function renderLibrary () {
     for (let i = 0; i < myLibrary.length; i++ ) {
@@ -119,9 +119,6 @@ function clearHtml () {
         libraryContainer.removeChild(libraryContainer.lastElementChild);
     }
 };
-
-renderPage();
-
 
 function removeSelect () {
     let removeBtn = document.querySelectorAll('.book-remove');
@@ -149,8 +146,7 @@ function changeStatus(index, status) {
     myLibrary.splice(index, 1, tempBook);
     renderPage();
     console.log(myLibrary[index]);
-
-}
+};
 
 function statusListener () {
     let statusBtn = document.querySelectorAll('.status');
@@ -164,4 +160,6 @@ function statusListener () {
         }
         })
     });
-}
+};
+
+renderPage();
