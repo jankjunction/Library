@@ -12,10 +12,23 @@
   <title>Library</title>
 </head>
 <body>
-  <div class="header-container">
-    <div class="logo">library</div>
-    <div class="new-book">+book</div>
+  <div class="main-container">
+    <div class="header-container">
+      <div class="logo">library</div>
+      <div class="new-book">+book</div>
+    </div>
+      <div class="library-container">
+        <div class="modal">
+          <input type="text" id="new-title" placeholder="+new book" class="input-field" id="new-title" required>
+          <input type="text" id="new-author" placeholder="+new author" class="input-field" id="new-author" required>
+          <input type="text" id="new-pages" placeholder="# pages" class="input-field" id="new-pages" required>
+          <select id="new-read" required>
+            <option value="Read">Read</option>
+            <option value="Unread">Unread</option>
+          </select>
+          <input type="submit" id="submit">
+        </div>
+      </div>
   </div>
-  <div class="library-container"></div>
 </body>
 </html>

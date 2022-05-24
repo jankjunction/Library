@@ -1,17 +1,34 @@
 html {
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 *, *:before, *:after {
   box-sizing: inherit;
-  cursor: default;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
   margin: 0;
   padding: 0;
+  font-weight: normal;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 body {
   background-color: #FFCFF2;
   font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  display: grid;
 }
 
 .header-container {
@@ -32,14 +49,22 @@ body {
 .new-book {
   font-size: 2rem;
   justify-self: start;
-  align-self: center;
-  padding-top: 16px;
+  align-self: end;
+  margin-bottom: 8px;
+  cursor: default;
+}
+
+.new-book:hover {
+  background-color: #A2D2FF;
 }
 
 .library-container {
   height: auto;
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
+  grid-auto-flow: row;
   gap: 25px;
   padding: 16px;
 }
@@ -51,7 +76,7 @@ body {
   grid-template-columns: 1fr 1fr;
   border-radius: 8px;
   max-width: 250px;
-  box-shadow: 2px 2px 4px #888;
+  box-shadow: 2px 2px 4px grey;
 }
 
 .book-title,
@@ -78,7 +103,6 @@ body {
 }
 
 .book-author {
-  box-shadow: inset 0 4px 3px -3px #888;
   grid-column: 1 / 3;
   padding-top: 16px;
 }
@@ -103,4 +127,22 @@ body {
 
 .book-unread {
   background-color: #FFAFCC;
+}
+
+.modal {
+  background-color: white;
+  border-radius: 8px;
+  padding: 8px;
+  grid-column-start: -1;
+  grid-row: 1 / -1;
+  display: none;
+  gap: 8px;
+}
+
+.visible {
+  display: grid;
+}
+
+.input {
+  background-color: #CDB4DB;
 }
