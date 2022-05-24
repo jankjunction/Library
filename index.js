@@ -4,20 +4,23 @@ const newBookBtn = document.querySelector('.new-book');
 const modal = document.querySelector('.modal');
 const submitBtn = document.querySelector('#submit');
 
+
+// Adds a new book to the library based on user input
 submitBtn.addEventListener('click', () => {
     let newTitle = document.querySelector('#new-title').value;
     let newAuthor = document.querySelector('#new-author').value;
     let newPages = document.querySelector('#new-pages').value;
     let newRead = document.querySelector('#new-read').value;
+    let newData = myLibrary.length;
 
-    addBookToLibrary(newTitle, newAuthor, newPages, isRead(newRead));
-    clearHtml();
-    renderLibrary();
-})
+    addBookToLibrary(newTitle, newAuthor, newPages, isRead(newRead), newData);
+    renderPage()
+});
 
+// Toggles visibility of the +new book form
 newBookBtn.addEventListener('click', () => {
     modal.classList.toggle('visible');
-    console.log(modal);
+    renderPage();
 });
 
 class Book {
@@ -26,21 +29,29 @@ class Book {
         this.author = author;
         this.pages = pages;
         this.read = read;
+        this.data = myLibrary.length;
     }
 };
+
 
 function addBookToLibrary (title, author, pages, read) {
     const newBook = new Book(title, author, pages, read);
     myLibrary.push(newBook);
 };
 
+// Helper function to convert textContent to boolean
 function isRead (status) {
-    if (status === 'Read') {
+    if (status === 'read') {
         return true;
     } else {
         return false
     }
 };
+
+// Removes a book from the library
+function removeBook (index) {
+    myLibrary.splice(index, 1);
+}
 
 addBookToLibrary('Game of Thrones', 'George R.R. Martin', 694, true);
 addBookToLibrary('Where the Crawdads Sing', 'Delia Owens', 368, false);
@@ -60,22 +71,40 @@ function BookHtml (object) {
     const pagesDiv = document.createElement('div');
     pagesDiv.setAttribute('class', 'book-pages');
     const readDiv = document.createElement('div');
-    readDiv.setAttribute('class', 'book-read');
+    readDiv.classList.add('book-read');
+    readDiv.classList.add('status');
+    readDiv.classList.add('book-unread')
+    const dataDiv = document.createElement('div');
+    dataDiv.setAttribute('class', 'book-data');
+    const removeDiv = document.createElement('div');
+    removeDiv.setAttribute('class', 'book-remove');
     containerDiv.appendChild(titleDiv);
     containerDiv.appendChild(authorDiv);
     containerDiv.appendChild(pagesDiv);
     containerDiv.appendChild(readDiv);
+    containerDiv.appendChild(removeDiv);
+    containerDiv.appendChild(dataDiv);
     libraryContainer.appendChild(containerDiv);
     titleDiv.textContent = object.title;
     authorDiv.textContent = object.author;
     pagesDiv.textContent = object.pages + ' pages';
+    dataDiv.textContent = object.data;
+    removeDiv.textContent = 'remove';
     if (object.read === true) {
-        readDiv.textContent = 'Read'
+        readDiv.textContent = 'read';
+        readDiv.classList.toggle('book-unread');
     } else {
-        readDiv.textContent = 'Unread'
-        readDiv.setAttribute('class', 'book-unread')
+        readDiv.textContent = 'unread';
+        readDiv.classList.toggle('book-read');
     }
 };
+
+function renderPage () {
+    clearHtml();
+    renderLibrary();
+    removeSelect();
+    statusListener();
+}
 
 function renderLibrary () {
     for (let i = 0; i < myLibrary.length; i++ ) {
@@ -85,9 +114,52 @@ function renderLibrary () {
 
 function clearHtml () {
     let bookCards = document.querySelectorAll('.book-card');
-    for (let i = 1; i < bookCards.length; i++) {
+    for (let i = 0; i < bookCards.length; i++) {
         libraryContainer.removeChild(libraryContainer.lastElementChild);
     }
 };
 
-renderLibrary();
+renderPage();
+
+
+function removeSelect () {
+    let removeBtn = document.querySelectorAll('.book-remove');
+    let dataReset = document.querySelectorAll('.book-data');
+    let x = 0;
+
+    [...dataReset].forEach(item => {
+        item.textContent = x;
+        x++;
+    });
+
+    [...removeBtn].forEach(item => {
+        item.addEventListener('click', () => {
+            console.log(item.nextSibling.textContent);
+            removeBook(item.nextSibling.textContent);
+            renderPage();
+            }
+        )}
+    )
+};
+
+function changeStatus(index, status) {
+    let tempBook = new Book(myLibrary[index].title, myLibrary[index].author, myLibrary[index].pages, !status)
+    tempBook.data = parseInt(index);
+    myLibrary.splice(index, 1, tempBook);
+    renderPage();
+
+}
+
+function statusListener () {
+    let statusBtn = document.querySelectorAll('.status');
+
+    [...statusBtn].forEach(item => {
+        item.addEventListener('click', () => {
+            if (item.textContent === 'read') {
+            changeStatus(item.nextSibling.nextSibling.textContent, true);
+        } else {
+            changeStatus(item.nextSibling.nextSibling.textContent, false);
+        }
+        })
+    });
+}
