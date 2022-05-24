@@ -23,7 +23,7 @@ img {
 }
 
 body {
-  background-color: #FFCFF2;
+  background-color: #e6e6e6;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -109,11 +109,12 @@ body {
 .book-author {
   grid-column: 1 / 3;
   padding-top: 16px;
+  align-self: center;
 }
 
 .book-pages {
   grid-row-start: 3;
-  align-self: end;
+  align-self: center;
 }
 
 .book-read, .book-unread {

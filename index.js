@@ -11,6 +11,7 @@ submitBtn.addEventListener('click', () => {
     let newAuthor = document.querySelector('#new-author').value;
     let newPages = document.querySelector('#new-pages').value;
     let newRead = document.querySelector('#new-read').value;
+    console.log(newRead);
     let newData = myLibrary.length;
 
     addBookToLibrary(newTitle, newAuthor, newPages, isRead(newRead), newData);
@@ -53,11 +54,11 @@ function removeBook (index) {
     myLibrary.splice(index, 1);
 }
 
-addBookToLibrary('Game of Thrones', 'George R.R. Martin', 694, true);
+// addBookToLibrary('Game of Thrones', 'George R.R. Martin', 694, true);
 addBookToLibrary('Where the Crawdads Sing', 'Delia Owens', 368, false);
 addBookToLibrary('The Lightning Thief', 'Rick Riordan', 416, true);
-addBookToLibrary('The Sea of Monsters', 'Rick Riordan', 320, true);
-addBookToLibrary('A Clash of Kings', 'George R.R. Martin', 768, true);
+// addBookToLibrary('The Sea of Monsters', 'Rick Riordan', 320, true);
+// addBookToLibrary('A Clash of Kings', 'George R.R. Martin', 768, true);
 addBookToLibrary('The Principles of Object-Oriented JavaScript', 'Nicholas C. Zakas', 120, false);
 
 
@@ -147,6 +148,7 @@ function changeStatus(index, status) {
     tempBook.data = parseInt(index);
     myLibrary.splice(index, 1, tempBook);
     renderPage();
+    console.log(myLibrary[index]);
 
 }
 
